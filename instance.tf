@@ -121,23 +121,11 @@ resource "null_resource" "vm_node_init" {
 
 }
 
-output "vm_deploy" {
-  value = [vsphere_virtual_machine.vm_deploy.*.name, vsphere_virtual_machine.vm_deploy.*.default_ip_address]
-}
-
-output "app_deploy" {
-  value = tomap({
-    for appwar, appcontext in local.appwars : appwar => appcontext
-  })
-}
-
-output "vm_ip" {
-  value = vsphere_virtual_machine.vm_deploy.*.default_ip_address
-}
 
 locals {
   appwars = data.terraform_remote_state.global.outputs.apps
   dbvmip = data.terraform_remote_state.dbvm.outputs.vm_ip[0]
   root_password = yamldecode(data.terraform_remote_state.global.outputs.root_password)
+  appvmip = data.terraform_remote_state.appvm.outputs.vm_ip[0]
 }
 
