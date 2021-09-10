@@ -38,6 +38,10 @@ variable "globalwsname" {
   type = string
 }
 
+variable "appvmwsname" {
+  type = string
+}
+
 resource "null_resource" "vm_node_init" {
 
   provisioner "file" {
