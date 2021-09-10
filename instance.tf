@@ -20,6 +20,15 @@ data "terraform_remote_state" "dbvm" {
   }
 }
 
+data "terraform_remote_state" "appvm" {
+  backend = "remote"
+  config = {
+    organization = "Lab14"
+    workspaces = {
+      name = var.appvmwsname
+    }
+  }
+}
 
 variable "dbvmwsname" {
   type = string
